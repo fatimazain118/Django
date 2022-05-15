@@ -1,0 +1,9 @@
+from django.http import HttpResponse
+
+def index(request):
+    #return HttpResponse("<h1> Hii </h1>")
+    #return HttpResponse("Hii")
+    return HttpResponse('''<h1>For Entertainment </h1><a href = "https://www.youtube.com" >youtube video</a>''')
+
+def about(request):
+    return HttpResponse("About Me")
