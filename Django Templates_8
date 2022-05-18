@@ -1,0 +1,42 @@
+Don't you think it is less effective to use return HttpResponse to return strings in Django? What if you want to return thousands or even more sentences.
+Will you write a return HttpResponse for each and every sentence? You can copy-paste, but it is not an effective way.
+Now, let's suppose you want to create a gym website or any other complex website, and you want to include HTML in your website. How will you do it? Let me answer 
+this question for you. We need a convenient way to include HTML dynamically, and templating in Django is the most common approach for including HTML.
+
+If you are visiting this website for the first time, then let me tell you that this is the #8 tutorial of the Django series. You can easily find the previous tutorials 
+here. Enough talk! Let's start our discussion on templates in Django.
+
+What Is A Django Template?
+i) It is a .html file that contains HTML, CSS and Javascript.
+ii) Django templates are written in the template language. Don't worry! You don't need to learn a new language. A template language is nothing but a mix of HTML and 
+simple programming logic.
+
+#This view return http response
+
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Home")
+
+def spaceremove(request):
+    return HttpResponse("spaceremove <a href='/'> back</a>")       #will make back button
+    
+def index(request):
+    params = {'name':'harry', 'place':'Mars'}     #passing dict into render as an argrument
+    return render(request, 'index.html', params)
+    
+    
+    
+# After creating new template directory and including new index file, also making some changes in setting of templates
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Template is working</title>
+</head>
+<body>
+This is working template!
+{{ name }} is from {{ place }}
+</body>
+</html>
