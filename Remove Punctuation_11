@@ -1,0 +1,71 @@
+#index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Utils</title>
+</head>
+<body>
+<h1> Welcome to the text analyzer. Enter your text below</h1>
+<form action='/analyze' method='get'>       #this analyze is define in urls.py
+    <textarea name='text' style='margin: 0px; width: 721px; height: 93px;'> </textarea> <br>
+    <input type="checkbox" name="removepunc"> Remove Punctuation<br>
+    <button type='submit'> Analyze text </button>
+</form>
+</body>
+</html>
+
+
+#analyze.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analyzing your text</title>
+</head>
+<body>
+<h1> Your Analyzed Text - {{ purpose }} </h1>
+<p>
+    {{ analyzed_text }}
+</p>
+
+</body>
+</html>
+
+
+#views.py
+
+from django.http import HttpResponse
+from django.shortcuts import render
+
+def index(request):
+    return render(request, 'index.html')
+
+def analyze(request):
+    #Get the text
+    djtext = request.GET.get('text','default')  #it'll return the text that you have input in the text box
+    removepunc = request.GET.get('removepunc', 'off')
+
+    if removepunc == "on":
+        punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        analyzed = ""
+
+        for char in djtext:
+            if char not in punctuations:
+                analyzed = analyzed + char
+        params = {'purpose' : 'Removed Punctuations', 'analyzed_text' : analyzed}
+        #analyze the text
+        return render(request, 'analyze.html', params)
+    else :
+        return HttpResponse('Error')
+
+
+#urls.py
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.index, name='index'),    #home page taken care by index of views page
+    path('analyze', views.analyze, name='analyze'),
+]
