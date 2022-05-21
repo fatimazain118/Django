@@ -1,3 +1,8 @@
+create a personal navigator for the top 5 websites that you use most. You should be able to access all the five websites directly through your development environment
+of Django.
+
+########views.py
+
 from django.http import HttpResponse
 
 def index(request):
@@ -7,3 +12,20 @@ def index(request):
 
 def about(request):
     return HttpResponse("About Me")
+    
+    
+#or
+
+def ex1(request):
+    s=''' Navigation Bar <br> </h2>
+    <a href= "https://www.youtube.com/playlist?list=PLu0W_9lII9ah7DDtYtflgwMwpT3xmjXY9" > Django Code With Harry Bhai </a><br>
+    <a href="https://www.facebook.com/"> Facebook </a> <br>
+    <a href="https://www.flipkart.com/"> Flipkart </a> <br>
+    <a href="https://www.hindustantimes.com/"> News </a> <br>
+    <a href="https://www.google.com/"> Google </a> <br>
+    reutrn HttpResponse(s)
+    
+    
+######urls.py
+
+path('ex1', views.ex1, name="ex1")
